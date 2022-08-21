@@ -39,6 +39,6 @@ func main() {
 	router := gin.Default()
 	router.POST("/migrate", userServer.AutoMigrateTable())
 	router.POST("/migrate2", userServer.AutoMigrateAddressTable())
+	router.POST("/migrate3", userServer.AutoMigrateCompanyTable())
 	router.Run(":1213")
-
 }
