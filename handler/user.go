@@ -31,3 +31,10 @@ func (u UserHandler) AutoMigrateAddressTable(ctx context.Context) error {
 	}
 	return nil
 }
+
+func (u UserHandler) AutoMigrateCompanyTable(ctx context.Context) error {
+	if err := u.User.AutoMigrateCompanyTable(ctx); err != nil {
+		return err
+	}
+	return nil
+}

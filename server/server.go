@@ -37,3 +37,14 @@ func (u UserServer) AutoMigrateAddressTable() gin.HandlerFunc {
 		c.String(http.StatusOK, "address table created successfully")
 	}
 }
+
+func (u UserServer) AutoMigrateCompanyTable() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if err := u.User.AutoMigrateCompanyTable(c); err != nil {
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+		c.String(http.StatusOK, "successful")
+
+	}
+}
