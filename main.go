@@ -3,6 +3,8 @@ package main
 import (
 	"os"
 	"servicesPool/config"
+	"servicesPool/handler"
+	"servicesPool/server"
 	"servicesPool/storage"
 
 	"github.com/gin-gonic/gin"
@@ -11,6 +13,9 @@ import (
 )
 
 var client *storage.Conn
+var userStorage storage.User
+var userHandler handler.UserHandler
+var userServer server.UserServer
 
 func init() {
 	_ = godotenv.Load()
@@ -25,10 +30,14 @@ func init() {
 		DatabasePort: p,
 	}
 	client = storage.NewConn(c, db)
+	userStorage = storage.NewUser(*client)
+	userHandler = *handler.NewUserHandler(userStorage)
+	userServer = *server.NewUserServer(userHandler)
 }
 
 func main() {
 	router := gin.Default()
+	router.POST("/migrate", userServer.AutoMigrateTable())
 	router.Run(":1213")
 
 }
