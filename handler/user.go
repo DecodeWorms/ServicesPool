@@ -2,7 +2,11 @@ package handler
 
 import (
 	"context"
+	"fmt"
 	"servicesPool/storage"
+	"servicesPool/util"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type UserHandler struct {
@@ -30,4 +34,17 @@ func (u UserHandler) AutoMigrateAddressTable(ctx context.Context) error {
 		return err
 	}
 	return nil
+}
+
+func validateStruct(v util.InitValidator, data interface{}) []error {
+	structErr := make([]error, 0)
+	if err := v.Struct(data); err != nil {
+		for _, value := range err.(validator.ValidationErrors) {
+			e := fmt.Errorf("field :%s ", value.StructNamespace())
+			structErr = append(structErr, e)
+		}
+		return structErr
+	}
+	return nil
+
 }
