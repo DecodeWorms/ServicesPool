@@ -38,6 +38,7 @@ func init() {
 func main() {
 	router := gin.Default()
 	router.POST("/migrate", userServer.AutoMigrateTable())
+	router.POST("/migrate2", userServer.AutoMigrateAddressTable())
 	router.Run(":1213")
 
 }
