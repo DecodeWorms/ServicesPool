@@ -21,9 +21,9 @@ func NewUserServer(u handler.UserHandler) *UserServer {
 func (u UserServer) AutoMigrateTable() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if err := u.User.AutoMigrateTable(c); err != nil {
-			c.JSON(http.StatusInternalServerError, "err migrating table")
+			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
-		c.JSON(200, "table created successfully..")
+		c.String(http.StatusOK, "sucessfull")
 	}
 }
