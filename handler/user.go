@@ -24,3 +24,10 @@ func (u UserHandler) AutoMigrateTable(ctx context.Context) error {
 	}
 	return nil
 }
+
+func (u UserHandler) AutoMigrateAddressTable(ctx context.Context) error {
+	if err := u.User.AutoMigrateAddressTable(ctx); err != nil {
+		return err
+	}
+	return nil
+}

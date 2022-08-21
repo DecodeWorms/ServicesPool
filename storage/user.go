@@ -7,6 +7,7 @@ import (
 
 type UserServices interface {
 	AutoMigrateTable(ctx context.Context) error
+	AutoMigrateAddressTable(ctx context.Context) error
 }
 
 type User struct {
@@ -24,5 +25,11 @@ func NewUser(c Conn) User {
 func (u User) AutoMigrateTable(ctx context.Context) error {
 	var user models.User
 	return u.Conn.Client.AutoMigrate(&user)
+
+}
+
+func (u User) AutoMigrateAddressTable(ctx context.Context) error {
+	var add models.Address
+	return u.Conn.Client.AutoMigrate(&add)
 
 }
