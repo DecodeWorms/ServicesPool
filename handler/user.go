@@ -35,6 +35,14 @@ func (u UserHandler) AutoMigrateAddressTable(ctx context.Context) error {
 	}
 	return nil
 }
+func (u UserHandler) AutoMigrateCompanyTable(ctx context.Context) error {
+	if err := u.User.AutoMigrateCompanyTable(ctx); err != nil {
+		return err
+	}
+	return nil
+}
+
+
 
 func validateStruct(v util.InitValidator, data interface{}) []error {
 	structErr := make([]error, 0)
@@ -47,4 +55,3 @@ func validateStruct(v util.InitValidator, data interface{}) []error {
 	}
 	return nil
 
-}

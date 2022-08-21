@@ -8,6 +8,7 @@ import (
 type UserServices interface {
 	AutoMigrateTable(ctx context.Context) error
 	AutoMigrateAddressTable(ctx context.Context) error
+	AutoMigrateCompanyTable(ctx context.Context) error
 }
 
 type User struct {
@@ -32,4 +33,9 @@ func (u User) AutoMigrateAddressTable(ctx context.Context) error {
 	var add models.Address
 	return u.Conn.Client.AutoMigrate(&add)
 
+}
+
+func (u User) AutoMigrateCompanyTable(ctx context.Context) error {
+	var cmp models.Company
+	return u.Conn.Client.AutoMigrate(&cmp)
 }
