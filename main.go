@@ -40,5 +40,7 @@ func main() {
 	router.POST("/migrate", userServer.AutoMigrateTable())
 	router.POST("/migrate2", userServer.AutoMigrateAddressTable())
 	router.POST("/migrate3", userServer.AutoMigrateCompanyTable())
+	router.POST("/migrate4", userServer.AutoMigratePostUserRegistration())
+	router.POST("/migrate5", userServer.AutoMigrateCompanyAddress())
 	router.Run(":1213")
 }
